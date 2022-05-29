@@ -1,6 +1,6 @@
 {
-    "name": "firebase_flutter",
-    "short_name": "firebase_flutter",
+    "name": "hello_world",
+    "short_name": "hello_world",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
