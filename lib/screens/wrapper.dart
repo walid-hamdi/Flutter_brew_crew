@@ -9,7 +9,7 @@ class Wrapper extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final user = Provider.of<User>(context) as dynamic;
+    final user = Provider.of<User?>(context) as dynamic;
     return user != null ? const Home() : const Authenticate();
   }
 }

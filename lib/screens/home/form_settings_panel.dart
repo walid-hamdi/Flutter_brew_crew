@@ -16,13 +16,7 @@ class FormSettings extends StatefulWidget {
 
 class _FormSettingsState extends State<FormSettings> {
   final _formKey = GlobalKey<FormState>();
-  final List<String> sugars = [
-    "0",
-    "1",
-    "2",
-    "3",
-    "4"
-  ];
+  final List<String> sugars = ["0", "1", "2", "3", "4"];
 
   String? _currentName;
   String? _currentSugars;
@@ -30,20 +24,22 @@ class _FormSettingsState extends State<FormSettings> {
 
   @override
   Widget build(BuildContext context) {
-    final User user = Provider.of<User>(context);
-    CollectionReference coffees = FirebaseFirestore.instance.collection('coffees');
-    print(user.uid);
+    final User? user = Provider.of<User?>(context);
+    CollectionReference coffees =
+        FirebaseFirestore.instance.collection('coffees');
 
     return FutureBuilder<DocumentSnapshot>(
-      future: coffees.doc(user.uid).get(),
+      future: coffees.doc(user!.uid).get(),
       // future: DatabaseService(uid: user.uid).userData,
-      builder: (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
+      builder:
+          (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
         if (snapshot.hasError) {
           return const Text("Something went wrong");
         }
 
         if (snapshot.hasData) {
-          Map<String, dynamic> data = snapshot.data!.data() as Map<String, dynamic>;
+          Map<String, dynamic> data =
+              snapshot.data!.data() as Map<String, dynamic>;
 
           return Form(
             key: _formKey,
@@ -96,8 +92,10 @@ class _FormSettingsState extends State<FormSettings> {
                 ),
                 Slider(
                   value: (_currentStrength ?? data["strength"]).toDouble(),
-                  activeColor: Colors.brown[_currentStrength ?? data["strength"]],
-                  inactiveColor: Colors.brown[_currentStrength ?? data["strength"]],
+                  activeColor:
+                      Colors.brown[_currentStrength ?? data["strength"]],
+                  inactiveColor:
+                      Colors.brown[_currentStrength ?? data["strength"]],
                   min: 100,
                   max: 900,
                   divisions: 8,

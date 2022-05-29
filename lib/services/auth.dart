@@ -19,8 +19,10 @@ class AuthService {
 
   Future registerWithEmailAndPassword(String email, String password) async {
     try {
-      var result = await _auth.createUserWithEmailAndPassword(email: email, password: password);
-      final DatabaseService databaseService = DatabaseService(uid: result.user!.uid);
+      var result = await _auth.createUserWithEmailAndPassword(
+          email: email, password: password);
+      final DatabaseService databaseService =
+          DatabaseService(uid: result.user!.uid);
       databaseService.updateUserInfo("new member", "0", 100);
       return result.user;
     } catch (e) {
@@ -30,10 +32,10 @@ class AuthService {
 
   Future signInWithEmailAndPassword(String email, String password) async {
     try {
-      var result = await _auth.signInWithEmailAndPassword(email: email, password: password);
+      var result = await _auth.signInWithEmailAndPassword(
+          email: email, password: password);
       return result.user;
     } catch (e) {
-      print(e);
       return null;
     }
   }
@@ -42,7 +44,6 @@ class AuthService {
     try {
       return await _auth.signOut();
     } catch (e) {
-      print(e.toString());
       return null;
     }
   }

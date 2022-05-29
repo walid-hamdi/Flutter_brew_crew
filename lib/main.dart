@@ -14,8 +14,8 @@ void main() async {
 
   runApp(
     StreamProvider<User?>.value(
-      initialData: null,
       value: AuthService().user,
+      initialData: null,
       child: const MaterialApp(
         debugShowCheckedModeBanner: false,
         home: Wrapper(),
