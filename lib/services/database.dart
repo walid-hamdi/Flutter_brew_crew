@@ -1,5 +1,3 @@
-import 'dart:html';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import "package:flutterfirebase/models/coffee.dart";
 import "package:flutterfirebase/models/user.dart";
@@ -8,7 +6,8 @@ class DatabaseService {
   final String? uid;
   DatabaseService({this.uid});
   // create reference
-  final CollectionReference _coffees = FirebaseFirestore.instance.collection("coffees");
+  final CollectionReference _coffees =
+      FirebaseFirestore.instance.collection("coffees");
 
   List<Coffee> _coffeeListFromSnapshot(QuerySnapshot snapshot) {
     return snapshot.docs
@@ -40,10 +39,8 @@ class DatabaseService {
   }
 
   Future updateUserInfo(String name, String sugars, int strength) async {
-    return await _coffees.doc(uid).set({
-      "name": name,
-      "sugars": sugars,
-      "strength": strength
-    });
+    return await _coffees
+        .doc(uid)
+        .set({"name": name, "sugars": sugars, "strength": strength});
   }
 }
