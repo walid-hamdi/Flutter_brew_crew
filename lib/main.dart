@@ -10,16 +10,23 @@ import 'firebase_options.dart';
 void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
+  ).then(
+    (value) => {runApp(const MyApp())},
   );
+}
 
-  runApp(
-    StreamProvider<User?>.value(
-      value: AuthService().user,
+class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
+
+  @override
+  Widget build(context) {
+    return StreamProvider<User?>.value(
       initialData: null,
+      value: AuthService().user,
       child: const MaterialApp(
         debugShowCheckedModeBanner: false,
         home: Wrapper(),
       ),
-    ),
-  );
+    );
+  }
 }
