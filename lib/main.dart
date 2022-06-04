@@ -10,9 +10,9 @@ import 'firebase_options.dart';
 void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
-  ).then(
-    (value) => {runApp(const MyApp())},
   );
+
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
