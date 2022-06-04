@@ -36,7 +36,7 @@ class _HomeState extends State<Home> {
         backgroundColor: Colors.brown[800],
         body: const CoffeeList(),
         appBar: AppBar(
-          title: const Text("Home"),
+          title: const Text("Home Page"),
           backgroundColor: Colors.brown[900],
           actions: [
             TextButton(
