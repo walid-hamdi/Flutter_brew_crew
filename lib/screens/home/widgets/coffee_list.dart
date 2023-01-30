@@ -1,7 +1,8 @@
 import "package:flutter/material.dart";
-import 'package:flutterfirebase/models/coffee.dart';
 import 'package:provider/provider.dart';
-import 'package:flutterfirebase/screens/home/coffe_list_tile.dart';
+
+import '../../../models/coffee.dart';
+import 'coffee_list_tile.dart';
 
 class CoffeeList extends StatefulWidget {
   const CoffeeList({Key? key}) : super(key: key);

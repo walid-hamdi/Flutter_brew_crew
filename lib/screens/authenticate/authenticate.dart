@@ -1,6 +1,7 @@
 import "package:flutter/material.dart";
-import 'package:flutterfirebase/screens/authenticate/sign_in.dart';
-import 'package:flutterfirebase/screens/authenticate/sign_up.dart';
+
+import "sign_in.dart";
+import "sign_up.dart";
 
 class Authenticate extends StatefulWidget {
   const Authenticate({Key? key}) : super(key: key);
@@ -21,7 +22,7 @@ class _AuthenticateState extends State<Authenticate> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Autenticate"),
+        title: const Text("Authenticate"),
         backgroundColor: Colors.brown[900],
         actions: [
           TextButton(

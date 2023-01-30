@@ -1,7 +1,8 @@
 import "package:flutter/material.dart";
-import 'package:flutterfirebase/services/auth.dart';
-import 'package:flutterfirebase/shared/constants.dart';
-import 'package:flutterfirebase/shared/loading.dart';
+
+import "../../services/auth.dart";
+import "../../shared/constants.dart";
+import "../../shared/loading.dart";
 
 class SignIn extends StatefulWidget {
   const SignIn({Key? key}) : super(key: key);
@@ -14,9 +15,9 @@ class _SignInState extends State<SignIn> {
   final AuthService _auth = AuthService();
   final _formKey = GlobalKey<FormState>();
 
-  var _email;
-  var _password;
-  var _error;
+  var _email = "";
+  var _password = "";
+  var _error = "";
   bool _loading = false;
 
   @override
@@ -69,7 +70,7 @@ class _SignInState extends State<SignIn> {
                       if (val!.isEmpty) {
                         return "Enter password";
                       } else if (val.length < 6) {
-                        return "Password shoud be at least 6 chars + long";
+                        return "Password should be at least 6 chars + long";
                       } else {
                         return null;
                       }
@@ -98,7 +99,8 @@ class _SignInState extends State<SignIn> {
                           _loading = true;
                         });
                         // do authenticate
-                        var result = await _auth.signInWithEmailAndPassword(_email, _password);
+                        var result = await _auth.signInWithEmailAndPassword(
+                            _email, _password);
                         if (result == null) {
                           setState(
                             () {
@@ -118,7 +120,7 @@ class _SignInState extends State<SignIn> {
                     height: 20,
                   ),
                   Text(
-                    _error ?? "",
+                    _error,
                     style: TextStyle(color: Colors.red[400]),
                   ),
                 ],
