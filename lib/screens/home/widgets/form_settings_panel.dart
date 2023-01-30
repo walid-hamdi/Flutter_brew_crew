@@ -1,11 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import "package:flutter/material.dart";
-import 'package:flutterfirebase/models/user.dart';
-import 'package:flutterfirebase/services/database.dart';
-import 'package:flutterfirebase/shared/constants.dart';
-import 'package:flutterfirebase/shared/loading.dart';
 import 'package:provider/provider.dart';
+
+import '../../../services/database.dart';
+import '../../../shared/constants.dart';
+import '../../../shared/loading.dart';
 
 class FormSettings extends StatefulWidget {
   const FormSettings({Key? key}) : super(key: key);
@@ -58,7 +58,7 @@ class _FormSettingsState extends State<FormSettings> {
                     if (val!.isEmpty) {
                       return "Enter name";
                     } else if (val.length < 6) {
-                      return "Name shoud be at least 6 chars + long";
+                      return "Name should be at least 6 chars + long";
                     } else {
                       return null;
                     }
@@ -115,7 +115,7 @@ class _FormSettingsState extends State<FormSettings> {
                   onPressed: () async {
                     if (_formKey.currentState!.validate()) {
                       // update info in collections docs
-                      await DatabaseService(uid: user.uid).updateUserInfo(
+                      DatabaseService(uid: user.uid).updateUserInfo(
                         _currentName ?? data["name"],
                         _currentSugars ?? data['sugars'],
                         _currentStrength ?? data['strength'],

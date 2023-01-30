@@ -1,5 +1,6 @@
 import "package:flutter/material.dart";
-import 'package:flutterfirebase/models/coffee.dart';
+
+import "../../../models/coffee.dart";
 
 class CoffeeListTile extends StatelessWidget {
   final Coffee items;

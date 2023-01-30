@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import "package:flutterfirebase/models/coffee.dart";
-import "package:flutterfirebase/models/user.dart";
+
+import '../models/coffee.dart';
 
 class DatabaseService {
   final String? uid;

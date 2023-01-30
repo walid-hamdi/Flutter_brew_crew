@@ -1,10 +1,11 @@
 import "package:flutter/material.dart";
-import 'package:flutterfirebase/models/coffee.dart';
-import 'package:flutterfirebase/services/auth.dart';
-import 'package:flutterfirebase/services/database.dart';
 import 'package:provider/provider.dart';
-import 'package:flutterfirebase/screens/home/coffee_list.dart';
-import 'package:flutterfirebase/screens/home/form_settings_panel.dart';
+
+import '../../models/coffee.dart';
+import '../../services/auth.dart';
+import '../../services/database.dart';
+import 'widgets/coffee_list.dart';
+import 'widgets/form_settings_panel.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -17,7 +18,7 @@ class _HomeState extends State<Home> {
   final AuthService _auth = AuthService();
   @override
   Widget build(BuildContext context) {
-    void _showPanelSettings() {
+    void showPanelSettings() {
       showModalBottomSheet(
         context: context,
         builder: (context) {
@@ -41,7 +42,7 @@ class _HomeState extends State<Home> {
           actions: [
             TextButton(
               onPressed: () {
-                _showPanelSettings();
+                showPanelSettings();
               },
               child: const Text(
                 "Settings",
