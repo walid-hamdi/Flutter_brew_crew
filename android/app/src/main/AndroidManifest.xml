@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.walidhamdi.firebase_flutter">
+    package="com.example.firebase_flutter">
 
 
    <application
