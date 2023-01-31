@@ -1,4 +1,4 @@
-package com.walidhamdi.firebase_flutter
+package com.example.firebase_flutter
 
 import io.flutter.embedding.android.FlutterActivity
 
