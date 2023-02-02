@@ -7,28 +7,12 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:829596159772:android:5e8830992c9024987c74d9",
+        "mobilesdk_app_id": "1:829596159772:android:af139dd6e30159a87c74d9",
         "android_client_info": {
-          "package_name": "com.example.firebase_flutter"
+          "package_name": "com.walidhamdi.brewcrew"
         }
       },
       "oauth_client": [
-        {
-          "client_id": "829596159772-ta17r28vafm22i82kli5aefj4ulq6a7t.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.example.firebase_flutter",
-            "certificate_hash": "84187b4dec0acf9021c1895a4b749fcfc3c95e31"
-          }
-        },
-        {
-          "client_id": "829596159772-ts89pjch33i3mtlcsm3h3b181jv0c0qu.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.example.firebase_flutter",
-            "certificate_hash": "2b6afef9c0116c6b4b3c4b70884047ebc44c28e0"
-          }
-        },
         {
           "client_id": "829596159772-9ibik48l957t600lgq33m2gjdke8eh92.apps.googleusercontent.com",
           "client_type": 3

@@ -1,17 +1,17 @@
 import "package:flutter/material.dart";
 
 import "../../services/auth.dart";
-import "../../shared/constants.dart";
-import "../../shared/loading.dart";
+import '../../utils/constants.dart';
+import "../../widgets/loading.dart";
 
-class SignUp extends StatefulWidget {
-  const SignUp({Key? key}) : super(key: key);
+class SignIn extends StatefulWidget {
+  const SignIn({Key? key}) : super(key: key);
 
   @override
-  State<SignUp> createState() => _SignUpState();
+  State<SignIn> createState() => _SignInState();
 }
 
-class _SignUpState extends State<SignUp> {
+class _SignInState extends State<SignIn> {
   final AuthService _auth = AuthService();
   final _formKey = GlobalKey<FormState>();
 
@@ -34,13 +34,14 @@ class _SignUpState extends State<SignUp> {
                     height: 20,
                   ),
                   const Text(
-                    "Sign up",
+                    "Sign in",
                     style: TextStyle(fontSize: 30),
                   ),
                   const SizedBox(
                     height: 20,
                   ),
                   TextFormField(
+                      style: const TextStyle(color: Colors.white, fontSize: 20),
                       decoration: textInputDecoration.copyWith(
                         hintText: "Email",
                         prefixIcon: const Icon(
@@ -98,12 +99,12 @@ class _SignUpState extends State<SignUp> {
                           _loading = true;
                         });
                         // do authenticate
-                        var result = await _auth.registerWithEmailAndPassword(
+                        var result = await _auth.signInWithEmailAndPassword(
                             _email, _password);
                         if (result == null) {
                           setState(
                             () {
-                              _error = "Supply valid email";
+                              _error = "invalid credentials";
                               _loading = false;
                             },
                           );
@@ -111,7 +112,7 @@ class _SignUpState extends State<SignUp> {
                       }
                     },
                     child: const Text(
-                      "Register",
+                      "Sign in",
                       style: TextStyle(color: Colors.white, fontSize: 20),
                     ),
                   ),
