@@ -4,8 +4,8 @@ import "package:flutter/material.dart";
 import 'package:provider/provider.dart';
 
 import '../../../services/database.dart';
-import '../../../shared/constants.dart';
-import '../../../shared/loading.dart';
+import '../../../utils/constants.dart';
+import '../../../widgets/loading.dart';
 
 class FormSettings extends StatefulWidget {
   const FormSettings({Key? key}) : super(key: key);
