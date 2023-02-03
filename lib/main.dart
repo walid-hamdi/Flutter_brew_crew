@@ -16,3 +16,13 @@ void main() async {
 }
 
 
+
+
+// fingerprint for production firebase
+// hide .env from gitHub
+// change the name that will appear on the phone
+// update the design of the app
+
+// fix hide menu when click outside
+
+// start zoned express app

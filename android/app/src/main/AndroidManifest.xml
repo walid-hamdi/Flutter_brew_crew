@@ -3,7 +3,7 @@
 
 
    <application
-        android:label="flutterfirebase"
+        android:label="Brew Crew"
         android:name="${applicationName}"
         android:icon="@mipmap/launcher_icon">
         <activity
