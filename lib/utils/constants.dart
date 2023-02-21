@@ -1,16 +1,20 @@
 import 'package:flutter/material.dart';
 
-const textInputDecoration = InputDecoration(
-  contentPadding: EdgeInsets.symmetric(horizontal: 20),
-  filled: true,
-  fillColor: Colors.blueGrey,
-  hintStyle: TextStyle(
-    color: Colors.white,
-    fontSize: 18,
-  ),
-  border: OutlineInputBorder(
-    borderSide: BorderSide(
-      color: Colors.teal,
+class Routes {
+  static const String splashScreen = "/splashScreen";
+  static const String home = "/home";
+  static const String login = '/login';
+  static const String register = '/register';
+  static const String profile = '/profile';
+  static const String wrapper = '/wrapper';
+  static const String emailVerification = '/emailVerification';
+  static const String settings = '/settings';
+  static const String articleDetailsView = '/articleDetailsView';
+}
+
+InputDecoration inputDecoration = const InputDecoration(
+    hintStyle: TextStyle(
+      color: Colors.grey,
+      fontSize: 14,
     ),
-  ),
-);
+    border: InputBorder.none);

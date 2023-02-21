@@ -4,7 +4,8 @@ import "package:flutter/material.dart";
 import 'package:provider/provider.dart';
 
 import '../../../services/database.dart';
-import '../../../utils/constants.dart';
+import '../../../widgets/custom_button.dart';
+import '../../../widgets/custom_input_field.dart';
 import '../../../widgets/loading.dart';
 
 class FormSettings extends StatefulWidget {
@@ -21,6 +22,22 @@ class _FormSettingsState extends State<FormSettings> {
   String? _currentName;
   String? _currentSugars;
   int? _currentStrength;
+
+  String? _onNameValidator(String? val) {
+    if (val!.isEmpty) {
+      return "Enter name";
+    } else if (val.length < 6) {
+      return "Name should be at least 6 chars + long";
+    } else {
+      return null;
+    }
+  }
+
+  _onNameChanged(String? val) {
+    setState(() {
+      _currentName = val;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -52,27 +69,18 @@ class _FormSettingsState extends State<FormSettings> {
                 const SizedBox(
                   height: 10,
                 ),
-                TextFormField(
+                CustomInputField(
                   initialValue: data["name"],
-                  validator: (val) {
-                    if (val!.isEmpty) {
-                      return "Enter name";
-                    } else if (val.length < 6) {
-                      return "Name should be at least 6 chars + long";
-                    } else {
-                      return null;
-                    }
-                  },
-                  onChanged: (val) => setState(() {
-                    _currentName = val;
-                  }),
-                  decoration: textInputDecoration,
+                  validator: _onNameValidator,
+                  hintText: "Name",
+                  icon: Icons.person,
+                  onChange: _onNameChanged,
                 ),
                 const SizedBox(
                   height: 10,
                 ),
                 DropdownButtonFormField(
-                  decoration: textInputDecoration,
+                  // decoration: textInputDecoration,
                   onChanged: (val) => setState(() {
                     _currentSugars = val as String?;
                   }),
@@ -106,27 +114,11 @@ class _FormSettingsState extends State<FormSettings> {
                 const SizedBox(
                   height: 10,
                 ),
-                TextButton(
-                  style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all(
-                      Colors.blue[500],
-                    ),
-                  ),
-                  onPressed: () async {
-                    if (_formKey.currentState!.validate()) {
-                      // update info in collections docs
-                      DatabaseService(uid: user.uid).updateUserInfo(
-                        _currentName ?? data["name"],
-                        _currentSugars ?? data['sugars'],
-                        _currentStrength ?? data['strength'],
-                      );
-                      Navigator.pop(context);
-                    }
+                CustomButton(
+                  label: "Update",
+                  onPressed: () {
+                    _onUpdatePressed(user, data);
                   },
-                  child: const Text(
-                    "Update",
-                    style: TextStyle(color: Colors.white, fontSize: 20),
-                  ),
                 ),
               ],
             ),
@@ -136,5 +128,17 @@ class _FormSettingsState extends State<FormSettings> {
         }
       },
     );
+  }
+
+  _onUpdatePressed(User? user, Map<String, dynamic> data) async {
+    if (_formKey.currentState!.validate()) {
+      // update info in collections docs
+      DatabaseService(uid: user?.uid).updateUserInfo(
+        _currentName ?? data["name"],
+        _currentSugars ?? data['sugars'],
+        _currentStrength ?? data['strength'],
+      );
+      Navigator.pop(context);
+    }
   }
 }

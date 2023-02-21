@@ -1,5 +1,6 @@
 import "package:flutter/material.dart";
 
+import "../../widgets/scaffold_wrapper.dart";
 import "sign_in.dart";
 import "sign_up.dart";
 
@@ -20,23 +21,22 @@ class _AuthenticateState extends State<Authenticate> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return ScaffoldWrapper(
       appBar: AppBar(
-        title: const Text("Authenticate"),
-        backgroundColor: Colors.brown[900],
+        title: Text(toggleSignIn ? "Login account" : "Create account"),
         actions: [
-          TextButton(
-            onPressed: () {
-              toggleView();
-            },
-            child: Text(
-              toggleSignIn ? "Sign Up" : "Sign In",
-              style: const TextStyle(color: Colors.white),
+          InkWell(
+            onTap: toggleView,
+            child: Icon(
+              toggleSignIn ? Icons.person : Icons.login,
             ),
-          )
+          ),
+          const SizedBox(
+            width: 16,
+          ),
         ],
       ),
-      body: toggleSignIn ? const SignIn() : const SignUp(),
+      child: toggleSignIn ? const SignInView() : const SignUpView(),
     );
   }
 }

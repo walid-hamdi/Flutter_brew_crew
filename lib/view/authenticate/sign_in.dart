@@ -1,131 +1,117 @@
 import "package:flutter/material.dart";
 
 import "../../services/auth.dart";
-import '../../utils/constants.dart';
+import "../../widgets/custom_container.dart";
 import "../../widgets/loading.dart";
+import "../../widgets/custom_input_field.dart";
+import "../../widgets/custom_button.dart";
 
-class SignIn extends StatefulWidget {
-  const SignIn({Key? key}) : super(key: key);
+class SignInView extends StatefulWidget {
+  const SignInView({Key? key}) : super(key: key);
 
   @override
-  State<SignIn> createState() => _SignInState();
+  State<SignInView> createState() => _SignInViewState();
 }
 
-class _SignInState extends State<SignIn> {
+class _SignInViewState extends State<SignInView> {
   final AuthService _auth = AuthService();
   final _formKey = GlobalKey<FormState>();
 
-  var _email = "";
-  var _password = "";
-  var _error = "";
+  String _email = "";
+  String _password = "";
+  String _error = "";
   bool _loading = false;
+
+  String? _onEmailValidator(String? val) => val!.isEmpty ? "Enter email" : null;
+  _onEmailChanged(String? val) {
+    setState(() {
+      _email = val!;
+    });
+  }
+
+  String? _onPasswordValidator(String? val) {
+    if (val!.isEmpty) {
+      return "Enter password";
+    } else if (val.length < 6) {
+      return "Password should be at least 6 chars + long";
+    } else {
+      return null;
+    }
+  }
+
+  _onPasswordChanged(String? val) {
+    setState(() {
+      _password = val!;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return _loading
         ? const Loading()
-        : Container(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: Form(
-              key: _formKey,
-              child: Column(
-                children: [
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  const Text(
-                    "Sign in",
-                    style: TextStyle(fontSize: 30),
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  TextFormField(
-                      style: const TextStyle(color: Colors.white, fontSize: 20),
-                      decoration: textInputDecoration.copyWith(
-                        hintText: "Email",
-                        prefixIcon: const Icon(
-                          Icons.email,
-                          color: Colors.white,
-                        ),
-                      ),
-                      validator: (val) => val!.isEmpty ? "Enter email" : null,
-                      onChanged: (val) {
-                        setState(() {
-                          _email = val;
-                        });
-                      }),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  TextFormField(
-                    decoration: textInputDecoration.copyWith(
-                      hintText: "Password",
-                      prefixIcon: const Icon(
-                        Icons.password,
-                        color: Colors.white,
-                      ),
+        : CustomContainer(
+            child: SingleChildScrollView(
+              child: Form(
+                key: _formKey,
+                child: Column(
+                  children: [
+                    const SizedBox(
+                      height: 20,
                     ),
-                    validator: (val) {
-                      if (val!.isEmpty) {
-                        return "Enter password";
-                      } else if (val.length < 6) {
-                        return "Password should be at least 6 chars + long";
-                      } else {
-                        return null;
-                      }
-                    },
-                    obscureText: true,
-                    onChanged: (val) {
-                      setState(
-                        () {
-                          _password = val;
-                        },
-                      );
-                    },
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  TextButton(
-                    style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all(
-                        Colors.blue[500],
-                      ),
+                    CustomInputField(
+                      hintText: "Enter email",
+                      icon: Icons.email,
+                      onChange: _onEmailChanged,
+                      validator: _onEmailValidator,
+                      initialValue: _email,
                     ),
-                    onPressed: () async {
-                      if (_formKey.currentState!.validate()) {
-                        setState(() {
-                          _loading = true;
-                        });
-                        // do authenticate
-                        var result = await _auth.signInWithEmailAndPassword(
-                            _email, _password);
-                        if (result == null) {
-                          setState(
-                            () {
-                              _error = "invalid credentials";
-                              _loading = false;
-                            },
-                          );
-                        }
-                      }
-                    },
-                    child: const Text(
-                      "Sign in",
-                      style: TextStyle(color: Colors.white, fontSize: 20),
+                    const SizedBox(
+                      height: 20,
                     ),
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  Text(
-                    _error,
-                    style: TextStyle(color: Colors.red[400]),
-                  ),
-                ],
+                    CustomInputField(
+                      hintText: "Enter password",
+                      icon: Icons.lock,
+                      onChange: _onPasswordChanged,
+                      validator: _onPasswordValidator,
+                      initialValue: _password,
+                      obscureText: true,
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    CustomButton(
+                      label: "Login",
+                      onPressed: _onLoginPressed,
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    Text(
+                      _error,
+                      style: TextStyle(color: Colors.red[400]),
+                    ),
+                  ],
+                ),
               ),
             ),
           );
+  }
+
+  _onLoginPressed() async {
+    if (_formKey.currentState!.validate()) {
+      setState(() {
+        _loading = true;
+      });
+      // do authenticate
+      var result = await _auth.signInWithEmailAndPassword(_email, _password);
+      if (result == null) {
+        setState(
+          () {
+            _error = "invalid credentials";
+            _loading = false;
+          },
+        );
+      }
+    }
   }
 }

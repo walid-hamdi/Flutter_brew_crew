@@ -4,17 +4,18 @@ import 'package:provider/provider.dart';
 import '../../models/coffee.dart';
 import '../../services/auth.dart';
 import '../../services/database.dart';
+import '../../widgets/scaffold_wrapper.dart';
 import 'widgets/coffee_list.dart';
 import 'widgets/form_settings_panel.dart';
 
-class Home extends StatefulWidget {
-  const Home({Key? key}) : super(key: key);
+class HomeView extends StatefulWidget {
+  const HomeView({Key? key}) : super(key: key);
 
   @override
-  State<Home> createState() => _HomeState();
+  State<HomeView> createState() => _HomeViewState();
 }
 
-class _HomeState extends State<Home> {
+class _HomeViewState extends State<HomeView> {
   final AuthService _auth = AuthService();
   @override
   Widget build(BuildContext context) {
@@ -33,33 +34,34 @@ class _HomeState extends State<Home> {
     return StreamProvider<List<Coffee>?>.value(
       initialData: null,
       value: DatabaseService().coffeeUsers,
-      child: Scaffold(
-        backgroundColor: Colors.brown[800],
-        body: const CoffeeList(),
+      child: ScaffoldWrapper(
         appBar: AppBar(
-          title: const Text("Home Page"),
+          title: const Text("Home"),
           backgroundColor: Colors.brown[900],
           actions: [
-            TextButton(
-              onPressed: () {
-                showPanelSettings();
+            PopupMenuButton(
+              onSelected: (result) async {
+                if (result == 0) {
+                  showPanelSettings();
+                } else if (result == 1) {
+                  await _auth.signout();
+                }
               },
-              child: const Text(
-                "Settings",
-                style: TextStyle(color: Colors.white),
-              ),
+              itemBuilder: (cnx) => [
+                const PopupMenuItem(
+                  value: 0,
+                  child: Text("Settings"),
+                ),
+                const PopupMenuItem(
+                  value: 1,
+                  child: Text("Logout"),
+                ),
+              ],
+              icon: const Icon(Icons.more_vert),
             ),
-            TextButton(
-              onPressed: () async {
-                await _auth.signout();
-              },
-              child: const Text(
-                "Signout",
-                style: TextStyle(color: Colors.white),
-              ),
-            )
           ],
         ),
+        child: const CoffeeList(),
       ),
     );
   }

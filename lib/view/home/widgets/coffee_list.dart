@@ -24,7 +24,10 @@ class _CoffeeListState extends State<CoffeeList> {
         itemCount: docs.length,
       );
     } else {
-      return const Text("There is no list now");
+      return const Center(
+          child: Text(
+        "There is no list now",
+      ));
     }
   }
 }
